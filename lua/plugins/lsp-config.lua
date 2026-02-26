@@ -37,7 +37,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if not client then return end
 
-          -- Enable Formatting
+          -- Enable Formatting (Only works for LSPs with formatting capabilities, not formatters. These use the conform.nvim fallback)
           if vim.lsp.client.supports_method(client, "textDocument/formatting") then
             vim.api.nvim_create_autocmd("BufWritePre", {
               buffer = args.buf,

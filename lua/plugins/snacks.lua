@@ -10,7 +10,7 @@ return {
       explorer = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
-      image = { enabled = true },
+      image = { enabled = true, math = { enabled = false } },
       picker = {
         enabled = true,
         layout = {

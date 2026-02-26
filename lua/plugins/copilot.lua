@@ -31,9 +31,7 @@ return {
     "folke/sidekick.nvim",
     opts = {
       nes = {
-        clear = {
-          esc = true,
-        },
+        enabled = false,
       },
       cli = {
         mux = {
