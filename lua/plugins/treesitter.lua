@@ -67,7 +67,11 @@ return {
       },
     },
     config = function(_, opts)
-      require("nvim-treesitter.config").setup(opts)
+      if vim.g.os == "wsl" then
+        require("nvim-treesitter.config").setup(opts)
+      else
+        require("nvim-treesitter.configs").setup(opts)
+      end
 
       if vim.g.os == "windows" then require("nvim-treesitter.install").compilers = { "zig" } end
     end,
