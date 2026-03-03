@@ -1,6 +1,7 @@
 {
     "completion.autoRequire": false,
     "diagnostics.globals": [
-        "Snacks"
+        "Snacks",
+        "vim"
     ]
 }

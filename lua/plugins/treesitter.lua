@@ -28,14 +28,6 @@ return {
           node_decremental = "<bs>",
         },
       },
-    },
-    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    enabled = true,
-    opts = {
       textobjects = {
         move = {
           enable = true,
@@ -44,7 +36,11 @@ return {
             ["]c"] = "@class.outer",
             ["]a"] = "@parameter.inner",
           },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_next_end = {
+            ["]F"] = "@function.outer",
+            ["]C"] = "@class.outer",
+            ["]A"] = "@parameter.inner",
+          },
           goto_previous_start = {
             ["[f"] = "@function.outer",
             ["[c"] = "@class.outer",
@@ -62,17 +58,19 @@ return {
           keymaps = {
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
-
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
-
             ["aa"] = "@parameter.outer",
             ["ia"] = "@parameter.inner",
           },
         },
       },
     },
-    config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
+    config = function(_, opts)
+      require("nvim-treesitter.config").setup(opts)
+
+      if vim.g.os == "windows" then require("nvim-treesitter.install").compilers = { "zig" } end
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
