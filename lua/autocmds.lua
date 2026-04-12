@@ -24,3 +24,26 @@ for _, os in ipairs(os_types) do
     break
   end
 end
+
+vim.api.nvim_create_user_command("Restart", function()
+  -- Get listed buffers
+  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+
+  -- Check if there's at least one "real" buffer (has a name)
+  local has_real_buffer = false
+  for _, buf in ipairs(bufs) do
+    if buf.name ~= "" then
+      has_real_buffer = true
+      break
+    end
+  end
+
+  if has_real_buffer then
+    local session = vim.fn.stdpath("state") .. "/session.vim"
+    vim.cmd("mksession! " .. vim.fn.fnameescape(session))
+    vim.cmd("restart source " .. vim.fn.fnameescape(session))
+  else
+    -- No meaningful buffers → just restart cleanly
+    vim.cmd("restart")
+  end
+end, {})
