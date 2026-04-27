@@ -10,9 +10,11 @@ map("n", "<leader>cr", vim.lsp.buf.rename, {})
 -- Diagnostics
 local diagnostic_goto = function(next, severity)
   ---@diagnostic disable-next-line: deprecated
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  -- local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  local direction = next and 1 or -1
+  local go = vim.diagnostic.jump
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go({ severity = severity }) end
+  return function() go({ count = direction, severity = severity }) end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })

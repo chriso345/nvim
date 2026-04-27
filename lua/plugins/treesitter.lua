@@ -1,79 +1,46 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    commit = vim.fn.has("nvim-0.12") == 0 and "7caec274fd19c12b55902a5b795100d21531391f" or nil,
+    version = false,
+
     build = ":TSUpdate",
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    keys = {
-      { "<C-space>", desc = "Increment Selection" },
-      { "<bs>",      desc = "Decrement Selection" },
-    },
+
+    event = { "BufReadPre", "BufNewFile" },
+    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
+
     opts = {
-      highlight = { enable = true },
       indent = { enable = true },
+      highlight = { enable = true },
       ensure_installed = {
         "bash",
         "c",
-        "go",
+        "cpp",
+        "html",
+        "javascript",
+        "json",
         "lua",
         "markdown",
         "python",
-        "rust",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = {
-            ["]f"] = "@function.outer",
-            ["]c"] = "@class.outer",
-            ["]a"] = "@parameter.inner",
-          },
-          goto_next_end = {
-            ["]F"] = "@function.outer",
-            ["]C"] = "@class.outer",
-            ["]A"] = "@parameter.inner",
-          },
-          goto_previous_start = {
-            ["[f"] = "@function.outer",
-            ["[c"] = "@class.outer",
-            ["[a"] = "@parameter.inner",
-          },
-          goto_previous_end = {
-            ["[F"] = "@function.outer",
-            ["[C"] = "@class.outer",
-            ["[A"] = "@parameter.inner",
-          },
-        },
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-          },
-        },
+        "toml",
+        "yaml",
       },
     },
-    config = function(_, opts)
-      if vim.g.os == "wsl" then
-        require("nvim-treesitter.config").setup(opts)
-      else
-        require("nvim-treesitter.configs").setup(opts)
-      end
 
-      if vim.g.os == "windows" then require("nvim-treesitter.install").compilers = { "zig" } end
+    config = function(_, opts)
+      require("nvim-treesitter.config").setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(ev)
+          local buf = ev.buf
+
+          local ok = pcall(vim.treesitter.start, buf)
+          if not ok then return end
+
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
     end,
   },
   {

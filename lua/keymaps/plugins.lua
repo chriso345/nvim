@@ -62,6 +62,7 @@ Snacks.toggle.diagnostics():map("<leader>ud")
 Snacks.toggle.dim():map("<leader>uD")
 Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 Snacks.toggle.zen():map("<leader>uz")
+Snacks.toggle.option("spell", { name = "Spell Checking" }):map("<leader>us")
 
 -- Snacks - Other
 map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Open Scratch Buffer" })
