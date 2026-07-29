@@ -1,5 +1,6 @@
 -- Editor settings
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.g.autoformat = true
 vim.g.snacks_animate = false
 vim.g.ai_cmp = true
