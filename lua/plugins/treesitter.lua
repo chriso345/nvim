@@ -13,6 +13,8 @@ return {
     opts = {
       indent = { enable = true },
       highlight = { enable = true },
+      folds = { enable = true },
+
       ensure_installed = {
         "bash",
         "c",
@@ -44,8 +46,22 @@ return {
     end,
   },
   {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+
+    config = function()
+      require("nvim-treesitter-textobjects").setup({
+        move = {
+          set_jumps = true,
+        },
+      })
+    end,
+  },
+  {
     "windwp/nvim-ts-autotag",
-    lazy = true,
     opts = {},
   },
 }

@@ -28,4 +28,4 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Restart
-vim.keymap.set("n", "<leader>R", "<cmd>Restart<CR>", { desc = "Restart Neovim" })
+map("n", "<leader>R", "<cmd>Restart<CR>", { desc = "Restart Neovim" })

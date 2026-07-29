@@ -4,7 +4,10 @@ return {
     lazy = false,
     name = "tokyonight",
     priority = 10000,
-    config = function() vim.cmd.colorscheme("tokyonight") end,
+    config = function()
+      require("tokyonight").setup({})
+      vim.cmd.colorscheme("tokyonight")
+    end,
   },
   {
     "rebelot/kanagawa.nvim",
@@ -15,6 +18,8 @@ return {
       require("kanagawa").setup({
         transparent = true,
       })
+
+      -- vim.cmd.colorscheme("kanagawa")
     end,
   },
   {
@@ -36,7 +41,41 @@ return {
     priority = 1000,
     config = function()
       require("bamboo").setup({})
-      -- require('bamboo').load()
+      -- vim.cmd.colorscheme("bamboo")
+    end,
+  },
+  {
+    "chriso345/mintchoco.nvim",
+    lazy = false,
+    name = "mintchoco",
+    priority = 1000,
+    config = function()
+      require("mintchoco").setup({})
+      -- vim.cmd.colorscheme("mintchoco")
+    end,
+  },
+  {
+    dir = "~/dev/plugins/suede.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("suede").setup({
+        theme = "ash",
+        contrast = 0,
+        -- transparent = true,
+      })
+      -- vim.cmd.colorscheme("suede")
+    end,
+  },
+  {
+    "jpwol/thorn.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("thorn").setup({
+        transparent = true,
+      })
+      -- vim.cmd.colorscheme("thorn")
     end,
   },
 }

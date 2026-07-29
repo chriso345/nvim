@@ -14,12 +14,13 @@ map("n", "<leader>ff", function() Snacks.picker.smart() end, { desc = "Smart Fin
 map("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 map("n", "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects Picker" })
 map("n", "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent Picker" })
-map(
-  "n",
-  "<leader>fc",
-  function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
-  { desc = "Find Config File" }
-)
+-- stylua: ignore
+map("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
+  { desc = "Find Config File" })
+map("n", "<leader>st", function() Snacks.picker.todo_comments() end, { desc = "Todo" })
+-- stylua: ignore
+map("n", "<leader>sT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end,
+  { desc = "Todo/Fix/Fixme" })
 
 -- Snacks - Grep
 map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
@@ -69,25 +70,5 @@ map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Open Scratch Bu
 map({ "n", "t" }, "]]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Next Reference" })
 map({ "n", "t" }, "[[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Prev Reference" })
 
--- TreeSitter
-map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-map("n", "<leader>uI", function()
-  vim.treesitter.inspect_tree()
-  vim.api.nvim_input("I")
-end, { desc = "Inspect Tree" })
-
 -- Undotree
 map("n", "<leader>uu", vim.cmd.UndotreeToggle, { desc = "Toggle Undotree" })
-
--- Sidekick
-map("n", "<tab>", function()
-  if not require("sidekick").nes_jump_or_apply() then return "<Tab>" end
-end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
-map(
-  "n",
-  "<leader>aa",
-  function() require("sidekick.cli").toggle({ name = "copilot", focus = true }) end,
-  { desc = "Sidekick Toggle Copilot CLI" }
-)
-map("n", "<leader>ad", function() require("sidekick.cli").close() end, { desc = "Detach a CLI Session" })
-map({ "n", "x" }, "<leader>ap", function() require("sidekick.cli").prompt() end, { desc = "Sidekick Select Prompt" })

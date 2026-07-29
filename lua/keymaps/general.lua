@@ -23,11 +23,3 @@ map(
   "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
   { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
-
--- OS Based Terminal Fixes
-if vim.g.os == "linux" then
-  map("n", "<C-/>", function() Snacks.terminal() end, { desc = "Terminal" })
-  map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-else
-  map("t", "<C-_>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-end

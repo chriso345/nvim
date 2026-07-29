@@ -10,6 +10,17 @@ autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 }) end,
 })
 
+-- Automatically fix Zig unused variables on save (zls)
+autocmd("BufWritePre", {
+  pattern = { "*.zig", "*.zon" },
+  callback = function(ev)
+    vim.lsp.buf.code_action({
+      context = { only = { "source.fixAll" } },
+      apply = true,
+    })
+  end,
+})
+
 -- Store a global variable for the OS type
 local os_types = {
   "wsl", -- WSL has to be checked before others as it will match both

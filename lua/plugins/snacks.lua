@@ -45,4 +45,24 @@ return {
     },
     keys = {},
   },
+  {
+    "folke/flash.nvim",
+    opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
+    },
+  },
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    priority = 1000,
+  },
 }

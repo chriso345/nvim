@@ -27,32 +27,4 @@ return {
       })
     end,
   },
-  {
-    "folke/sidekick.nvim",
-    opts = {
-      nes = {
-        enabled = false,
-      },
-      cli = {
-        mux = {
-          backend = "tmux",
-          enabled = true,
-          create = "window",
-        },
-        tools = {
-          copilot = {
-            cmd = {
-              "sh",
-              "-c",
-              [[
-                wid=$(tmux display-message -p -t "$TMUX_PANE" "#{window_id}") &&
-                tmux rename-window -t "$wid" copilot &&
-                copilot --banner
-              ]],
-            },
-          },
-        },
-      },
-    },
-  },
 }
